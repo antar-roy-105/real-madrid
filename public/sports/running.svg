@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="800" viewBox="0 0 1200 800">
+  <defs>
+    <linearGradient id="bg" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0%" stop-color="#065f46"/>
+      <stop offset="100%" stop-color="#0f172a"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="800" fill="url(#bg)"/>
+  <path d="M180 520 C320 250 500 250 640 520" fill="none" stroke="#34d399" stroke-width="46" stroke-linecap="round"/>
+  <rect x="700" y="220" width="70" height="360" rx="35" fill="#bbf7d0"/>
+  <text x="220" y="690" fill="#d1fae5" font-family="Arial, Helvetica, sans-serif" font-size="96" font-weight="700">RUNNING</text>
+</svg>

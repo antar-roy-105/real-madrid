@@ -1,0 +1,137 @@
+/* Full Page Slider Styles */
+html.snap-scrolling,
+body.snap-scrolling {
+  overflow: hidden !important;
+  overscroll-behavior-y: none;
+}
+
+.full-slider-container {
+  position: absolute;
+  inset: 0;
+  height: 100vh;
+  width: 100vw;
+  scroll-snap-type: y mandatory;
+  overflow-y: auto;
+  overflow-x: hidden;
+  z-index: 10;
+  scroll-behavior: smooth;
+}
+
+.full-slide {
+  height: 100vh;
+  width: 100vw;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 0 5rem;
+  scroll-snap-align: start;
+  scroll-snap-stop: always;
+}
+
+.full-slide-bg {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+}
+
+.full-slide-bg img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 10s linear;
+}
+
+.full-slide:hover .full-slide-bg img {
+  transform: scale(1.05);
+}
+
+.full-slide-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to right,
+    rgba(1, 13, 30, 0.9) 0%,
+    rgba(1, 13, 30, 0.5) 50%,
+    rgba(1, 13, 30, 0.2) 100%
+  );
+  z-index: 2;
+}
+
+.full-slide-content {
+  position: relative;
+  z-index: 3;
+  max-width: 650px;
+  opacity: 0;
+  transform: translateY(30px);
+  transition: all 1s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.full-slide-content.active {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.full-slide-title {
+  font-family: var(--font-primary);
+  font-size: clamp(3rem, 6vw, 5.5rem);
+  font-weight: 300;
+  color: var(--white);
+  line-height: 1.1;
+  margin-bottom: 1.25rem;
+  text-shadow: 0 4px 12px rgba(0,0,0,0.5);
+}
+
+.full-slide-desc {
+  font-family: var(--font-secondary);
+  font-size: 1.15rem;
+  color: var(--white-70);
+  line-height: 1.7;
+  text-shadow: 0 2px 8px rgba(0,0,0,0.5);
+  max-width: 80%;
+}
+
+.full-slider-pagination {
+  position: fixed;
+  right: 2.5rem;
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  z-index: 100;
+}
+
+.pagination-dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  border: 1px solid var(--white-50);
+  background: transparent;
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.pagination-dot:hover {
+  background: var(--white-30);
+  transform: scale(1.2);
+}
+
+.pagination-dot.active {
+  background: var(--white);
+  border-color: var(--white);
+  transform: scale(1.4);
+}
+
+.mt-6 {
+  margin-top: 1.5rem;
+}
+
+@media (max-width: 768px) {
+  .full-slide {
+    padding: 0 1.5rem;
+  }
+  .full-slider-pagination {
+    right: 1.5rem;
+  }
+}
