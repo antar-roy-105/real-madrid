@@ -1,12 +1,11 @@
-import { prisma } from "@/lib/prisma";
+﻿import { prisma } from "@/lib/prisma";
 import Link from "next/link";
 import Image from "next/image";
 
+export const dynamic = "force-dynamic";
+
 export default async function TicketsPage() {
-  const matches = await prisma.match.findMany({
-    orderBy: { date: 'asc' },
-    where: { isAvailable: true }
-  });
+  const matches = await prisma.match.findMany({ orderBy: { date: "asc" }, where: { isAvailable: true } }).catch(() => []);
 
   return (
     <main className="min-h-screen bg-[#010d1e] text-white pt-24 font-primary">
@@ -24,7 +23,7 @@ export default async function TicketsPage() {
             Entradas <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-[#8b9bf0]">Oficiales</span>
           </h1>
           <p className="text-white/70 max-w-2xl font-secondary text-lg">
-            Asegura tu lugar en el histórico Estadio Santiago Bernabéu. Compra tus entradas con antelación y vive en directo la magia del Real Madrid.
+            Asegura tu lugar en el histÃ³rico Estadio Santiago BernabÃ©u. Compra tus entradas con antelaciÃ³n y vive en directo la magia del Real Madrid.
           </p>
         </div>
 
@@ -35,9 +34,9 @@ export default async function TicketsPage() {
                <svg className="w-16 h-16 mx-auto text-white/30 mb-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
                  <path strokeLinecap="round" strokeLinejoin="round" d="M15 9h3.75M15 12h3.75M15 15h3.75M4.5 19.5h15a2.25 2.25 0 002.25-2.25V6.75A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25v10.5A2.25 2.25 0 004.5 19.5zm6-10.125a1.875 1.875 0 11-3.75 0 1.875 1.875 0 013.75 0zm1.294 6.336a6.721 6.721 0 01-3.17.789 6.721 6.721 0 01-3.168-.789 3.376 3.376 0 016.338 0z" />
                </svg>
-               <h3 className="text-2xl font-bold mb-2">Próximamente</h3>
+               <h3 className="text-2xl font-bold mb-2">PrÃ³ximamente</h3>
                <p className="text-white/50 font-secondary max-w-md mx-auto">
-                 Actualmente no hay partidos disponibles o se están actualizando los calendarios. Por favor, vuelve a visitar esta página en unas horas.
+                 Actualmente no hay partidos disponibles o se estÃ¡n actualizando los calendarios. Por favor, vuelve a visitar esta pÃ¡gina en unas horas.
                </p>
              </div>
           ) : (
@@ -78,7 +77,7 @@ export default async function TicketsPage() {
                     </div>
                     <div className="text-right">
                       <p className="text-sm font-semibold font-secondary text-white/70">Desde</p>
-                      <p className="text-2xl font-black text-[#c9a84c]">€{match.price.toFixed(0)}</p>
+                      <p className="text-2xl font-black text-[#c9a84c]">â‚¬{match.price.toFixed(0)}</p>
                     </div>
                   </div>
 
@@ -117,3 +116,5 @@ export default async function TicketsPage() {
     </main>
   );
 }
+
+
