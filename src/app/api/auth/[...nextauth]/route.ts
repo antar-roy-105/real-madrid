@@ -1,3 +1,9 @@
-import { GET, POST } from "@/lib/auth";
+import { NextResponse } from "next/server";
 
-export { GET, POST };
+export function GET() {
+  return NextResponse.json({ message: "Not available" }, { status: 404 });
+}
+
+export function POST() {
+  return NextResponse.json({ message: "Not available" }, { status: 404 });
+}
