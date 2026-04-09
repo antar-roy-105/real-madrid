@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
-import { Providers } from "@/components/Providers";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import "@/app/globals.css";
@@ -35,11 +34,9 @@ export default function RootLayout({
         />
       </head>
       <body className={`${inter.className} min-h-screen bg-slate-50 text-slate-900 antialiased`}>
-        <Providers>
-          <Navigation />
-          {children}
-          <Footer />
-        </Providers>
+        <Navigation />
+        {children}
+        <Footer />
       </body>
     </html>
   );

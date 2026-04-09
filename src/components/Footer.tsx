@@ -1,7 +1,6 @@
 "use client";
 
 import Link from "next/link";
-import { usePathname } from "next/navigation";
 
 const leftLinks = [
   { label: "Eventos y conciertos", href: "/events-concerts" },
@@ -19,12 +18,6 @@ const rightLinks = [
 ];
 
 export default function Footer() {
-  const pathname = usePathname();
-
-  // Do not show footer on the auth pages
-  if (pathname === "/login" || pathname === "/register") {
-    return null;
-  }
 
   return (
     <footer className="bg-[#021d3a] border-t border-white/10 pt-20 pb-10 px-8 lg:px-[5vw]" id="footer">
