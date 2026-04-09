@@ -1,6 +1,5 @@
 "use client";
 
-import { useSession, signOut } from "next-auth/react";
 import Link from "next/link";
 
 type Link = { label: string; href: string; external?: boolean };
@@ -25,14 +24,6 @@ export default function NavOverlay({
   open: boolean;
   onClose: () => void;
 }) {
-  const { data: session } = useSession();
-
-  const handleLogout = async () => {
-    onClose();
-    await signOut({ callbackUrl: "/login" });
-    alert("Has cerrado sesión correctamente.");
-  };
-
   return (
     <nav
       className={`fixed inset-0 z-[999] bg-gradient-to-br from-[#010d1e] via-[#011e41] to-[#010d1e] flex flex-col justify-center px-12 py-16 transition-all duration-500 ${open ? "opacity-100 visible" : "opacity-0 invisible"}`}
@@ -40,46 +31,7 @@ export default function NavOverlay({
     >
       <div className="absolute inset-0 pointer-events-none stripe-bg opacity-30"></div>
 
-      {/* User Session Info */}
-      {session?.user && (
-        <div
-          className={`flex items-center gap-4 mb-10 z-10 transition-all duration-500 ${open ? "opacity-100 translate-x-0" : "opacity-0 -translate-x-8"}`}
-          style={{ transitionDelay: "0.05s" }}
-        >
-          {/* Avatar */}
-          <div className="w-12 h-12 rounded-full bg-gradient-to-br from-[#8b9bf0] to-[#5c6fd4] flex items-center justify-center text-white font-bold text-lg shadow-lg shadow-[#8b9bf0]/30 overflow-hidden border-2 border-white/20">
-            {session.user.image ? (
-              <img
-                src={session.user.image}
-                alt={session.user.name || "User"}
-                className="w-full h-full object-cover"
-              />
-            ) : (
-              <span>
-                {(session.user.name || session.user.email || "U")
-                  .charAt(0)
-                  .toUpperCase()}
-              </span>
-            )}
-          </div>
-          <div>
-            <p className="text-white font-semibold font-primary text-base leading-tight">
-              {session.user.name || "Usuario"}
-            </p>
-            <p className="text-white/50 text-xs font-secondary">
-              {session.user.email}
-            </p>
-          </div>
-        </div>
-      )}
 
-      {/* Divider after user info */}
-      {session?.user && (
-        <div
-          className={`w-full h-px bg-white/10 mb-8 z-10 transition-all duration-500 ${open ? "opacity-100" : "opacity-0"}`}
-          style={{ transitionDelay: "0.08s" }}
-        />
-      )}
 
       <ul className="flex flex-col gap-3 z-10">
         {navLinks.map((link, i) => (
@@ -97,59 +49,7 @@ export default function NavOverlay({
         ))}
       </ul>
 
-      {/* Logout Button */}
-      {session?.user && (
-        <div
-          className={`mt-10 z-10 transition-all duration-500 ${open ? "opacity-100 translate-x-0" : "opacity-0 -translate-x-8"}`}
-          style={{ transitionDelay: `${navLinks.length * 0.05 + 0.05}s` }}
-        >
-          <div className="w-full h-px bg-white/10 mb-8" />
-          <button
-            onClick={handleLogout}
-            id="nav-logout-btn"
-            className="group flex items-center gap-3 font-primary text-xl font-semibold text-red-400 hover:text-white transition-all duration-300 hover:gap-4"
-          >
-            {/* Logout Icon */}
-            <span className="w-10 h-10 rounded-full border border-red-400/30 group-hover:border-red-400/70 group-hover:bg-red-500/10 flex items-center justify-center transition-all duration-300">
-              <svg
-                width="18"
-                height="18"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              >
-                <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4" />
-                <polyline points="16 17 21 12 16 7" />
-                <line x1="21" y1="12" x2="9" y2="12" />
-              </svg>
-            </span>
-            Cerrar sesión
-          </button>
-        </div>
-      )}
 
-      {/* Login Button (for unauthenticated users) */}
-      {!session?.user && (
-        <div
-          className={`mt-10 z-10 transition-all duration-500 ${open ? "opacity-100 translate-x-0" : "opacity-0 -translate-x-8"}`}
-          style={{ transitionDelay: `${navLinks.length * 0.05 + 0.05}s` }}
-        >
-          <div className="w-full h-px bg-white/10 mb-8" />
-          <Link
-            href="/login"
-            onClick={onClose}
-            className="group flex items-center justify-center gap-3 px-10 py-4 bg-gradient-to-r from-[#4264d0] to-[#5c6fd4] hover:from-[#2b4cba] hover:to-[#4264d0] rounded-full text-white font-primary font-bold text-xl transition-all duration-300 shadow-[0_0_20px_rgba(66,100,208,0.5)] border border-white/10 w-max"
-          >
-            Iniciar sesión
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="group-hover:translate-x-1 transition-transform">
-              <path d="M5 12h14M12 5l7 7-7 7"/>
-            </svg>
-          </Link>
-        </div>
-      )}
 
       <div className="absolute bottom-10 left-12 right-12 flex items-center justify-between z-10">
         <div className="text-sm font-semibold text-white/70 flex items-center gap-1 cursor-pointer">

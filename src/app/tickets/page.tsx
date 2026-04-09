@@ -1,11 +1,27 @@
-﻿import { prisma } from "@/lib/prisma";
 import Link from "next/link";
 import Image from "next/image";
 
-export const dynamic = "force-dynamic";
-
-export default async function TicketsPage() {
-  const matches = await prisma.match.findMany({ orderBy: { date: "asc" }, where: { isAvailable: true } }).catch(() => []);
+export default function TicketsPage() {
+  const matches = [
+    {
+      id: "1",
+      date: new Date("2025-05-15T19:00:00Z").toISOString(),
+      opponent: "Barcelona",
+      competition: "La Liga",
+      price: 150,
+      stadium: "Santiago Bernabéu",
+      imageUrl: "https://upload.wikimedia.org/wikipedia/en/4/47/FC_Barcelona_%28crest%29.svg"
+    },
+    {
+      id: "2",
+      date: new Date("2025-05-22T20:00:00Z").toISOString(),
+      opponent: "Atletico Madrid",
+      competition: "La Liga",
+      price: 120,
+      stadium: "Santiago Bernabéu",
+      imageUrl: "https://upload.wikimedia.org/wikipedia/en/f/f4/Atletico_Madrid_2017_logo.svg"
+    }
+  ];
 
   return (
     <main className="min-h-screen bg-[#010d1e] text-white pt-24 font-primary">

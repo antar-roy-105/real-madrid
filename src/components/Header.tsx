@@ -2,7 +2,6 @@
 
 import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
-import { useSession, signOut } from "next-auth/react";
 
 export default function Header({
   onMenuToggle,
@@ -14,8 +13,6 @@ export default function Header({
   const [scrolled, setScrolled] = useState(false);
   const [hidden, setHidden] = useState(false);
   const lastScrollY = useRef(0);
-  const { data: session } = useSession();
-  const [showUserMenu, setShowUserMenu] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -74,54 +71,6 @@ export default function Header({
           <Link href="/vip-area" className="text-white hover:text-white/80 transition-colors text-[14.5px] font-medium font-secondary tracking-wide drop-shadow-md flex items-center gap-1.5">VIP hospitality <ExternalArrow /></Link>
         </nav>
 
-        {/* Desktop User Avatar + Logout */}
-        {session?.user && (
-          <div className="relative hidden lg:flex items-center gap-2">
-            <button
-              id="header-user-menu"
-              onClick={() => setShowUserMenu((v) => !v)}
-              className="flex items-center gap-2 group"
-              aria-label="User menu"
-            >
-              <div className="w-8 h-8 rounded-full bg-gradient-to-br from-[#8b9bf0] to-[#5c6fd4] flex items-center justify-center text-white text-sm font-bold overflow-hidden border-2 border-white/20 shadow-lg shadow-[#8b9bf0]/20">
-                {session.user.image ? (
-                  <img src={session.user.image} alt="avatar" className="w-full h-full object-cover" />
-                ) : (
-                  <span>{(session.user.name || session.user.email || "U").charAt(0).toUpperCase()}</span>
-                )}
-              </div>
-              <span className="text-white/80 text-sm font-medium font-secondary">{session.user.name?.split(" ")[0]}</span>
-              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="text-white/50">
-                <polyline points="6 9 12 15 18 9" />
-              </svg>
-            </button>
-
-            {/* Dropdown */}
-            {showUserMenu && (
-              <div className="absolute top-full right-0 mt-3 w-52 bg-[#010d1e]/95 backdrop-blur-xl border border-white/10 rounded-xl shadow-2xl overflow-hidden z-[1002]">
-                <div className="px-4 py-3 border-b border-white/10">
-                  <p className="text-white text-sm font-semibold truncate">{session.user.name}</p>
-                  <p className="text-white/50 text-xs truncate">{session.user.email}</p>
-                </div>
-                <button
-                  id="header-logout-btn"
-                  onClick={async () => {
-                    await signOut({ callbackUrl: "/login" });
-                    alert("Has cerrado sesión correctamente.");
-                  }}
-                  className="w-full flex items-center gap-3 px-4 py-3 text-red-400 hover:text-white hover:bg-red-500/10 transition-all duration-200 text-sm font-medium font-secondary"
-                >
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                    <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4" />
-                    <polyline points="16 17 21 12 16 7" />
-                    <line x1="21" y1="12" x2="9" y2="12" />
-                  </svg>
-                  Cerrar sesión
-                </button>
-              </div>
-            )}
-          </div>
-        )}
 
         <button
           className="relative w-8 h-6 flex flex-col justify-between z-[1001] cursor-pointer ml-4 mr-2"
@@ -144,16 +93,7 @@ export default function Header({
           )}
         </button>
 
-        {/* Login button */}
-        {!session?.user && (
-          <Link
-            href="/login"
-            id="header-login-btn"
-            className="ml-4 px-5 py-2.5 rounded-md bg-[#4264d0] hover:bg-[#2b4cba] text-white font-[500] font-primary transition-colors duration-200 shadow-lg shadow-[#4264d0]/20"
-          >
-            Iniciar sesión
-          </Link>
-        )}
+
       </div>
     </header>
   );
