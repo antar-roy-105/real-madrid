@@ -6,6 +6,7 @@ type Link = { label: string; href: string; external?: boolean };
 
 const navLinks: Link[] = [
   { label: "Inicio", href: "/" },
+  { label: "Live Scores", href: "/livescores" },
   { label: "Eventos y conciertos", href: "/events-concerts" },
   { label: "Eventos corporativos", href: "/corporate-events" },
   { label: "Tour", href: "/tour" },
