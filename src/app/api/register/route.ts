@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import bcrypt from "bcryptjs";
 
-import prisma from "@/lib/prisma"; 
+import { prisma } from "@/lib/prisma";
 
 type RegisterPayload = {
   name?: string;
@@ -19,14 +19,14 @@ export async function POST(request: Request) {
     if (!normalizedName || !normalizedEmail || !password) {
       return NextResponse.json(
         { message: "Name, email and password are required." },
-        { status: 400 }
+        { status: 400 },
       );
     }
 
     if (password.length < 6) {
       return NextResponse.json(
         { message: "Password must be at least 6 characters." },
-        { status: 400 }
+        { status: 400 },
       );
     }
 
@@ -38,7 +38,7 @@ export async function POST(request: Request) {
     if (existingUser) {
       return NextResponse.json(
         { message: "An account with this email already exists." },
-        { status: 409 }
+        { status: 409 },
       );
     }
 
@@ -55,14 +55,14 @@ export async function POST(request: Request) {
 
     return NextResponse.json(
       { message: "Registration successful." },
-      { status: 201 }
+      { status: 201 },
     );
   } catch (error) {
     console.error("Registration error:", error);
 
     return NextResponse.json(
       { message: "Something went wrong. Please try again." },
-      { status: 500 }
+      { status: 500 },
     );
   }
 }
