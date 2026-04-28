@@ -1,9 +1,3 @@
-import { NextResponse } from "next/server";
+import { handlers } from "@/lib/auth";
 
-export function GET() {
-  return NextResponse.json({ message: "Not available" }, { status: 404 });
-}
-
-export function POST() {
-  return NextResponse.json({ message: "Not available" }, { status: 404 });
-}
+export const { GET, POST } = handlers;

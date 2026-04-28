@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect } from "react";
+import VideoPlayer from "@/components/VideoPlayer";
 import HeroSlider from "@/components/HeroSlider";
 import FeaturedSection from "@/components/FeaturedSection";
 import TourSection from "@/components/TourSection";
@@ -31,6 +32,7 @@ export default function DashboardPage() {
 
   return (
     <main className="w-full bg-[#f4f7fa] font-secondary mt-[70px]">
+      <VideoPlayer />
       <HeroSlider />
       <FeaturedSection />
       <TourSection />
